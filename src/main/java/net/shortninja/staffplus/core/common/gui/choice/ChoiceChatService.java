@@ -1,4 +1,4 @@
-package net.shortninja.staffplus.core.domain.confirmation;
+package net.shortninja.staffplus.core.common.gui.choice;
 
 import be.garagepoort.mcioc.IocBean;
 import me.rayzr522.jsonmessage.JSONMessage;

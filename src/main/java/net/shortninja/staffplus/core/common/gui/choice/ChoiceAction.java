@@ -1,4 +1,4 @@
-package net.shortninja.staffplus.core.domain.confirmation;
+package net.shortninja.staffplus.core.common.gui.choice;
 
 import org.bukkit.entity.Player;
 

@@ -7,7 +7,7 @@ import net.shortninja.staffplus.core.common.Items;
 import net.shortninja.staffplus.core.common.JavaUtils;
 import net.shortninja.staffplus.core.common.config.AbstractConfigLoader;
 import net.shortninja.staffplus.core.common.config.Options;
-import net.shortninja.staffplus.core.domain.confirmation.ConfirmationConfig;
+import net.shortninja.staffplus.core.common.gui.confirmation.ConfirmationConfig;
 import net.shortninja.staffplus.core.domain.staff.mode.item.ConfirmationType;
 import net.shortninja.staffplus.core.domain.staff.mode.item.CustomModuleConfiguration;
 import org.bukkit.Bukkit;

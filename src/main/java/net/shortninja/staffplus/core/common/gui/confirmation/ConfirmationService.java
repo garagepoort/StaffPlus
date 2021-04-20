@@ -1,6 +1,8 @@
-package net.shortninja.staffplus.core.domain.confirmation;
+package net.shortninja.staffplus.core.common.gui.confirmation;
 
 import be.garagepoort.mcioc.IocBean;
+import net.shortninja.staffplus.core.common.gui.choice.ChoiceAction;
+import net.shortninja.staffplus.core.common.gui.choice.ChoiceChatService;
 import net.shortninja.staffplus.core.domain.staff.mode.item.ConfirmationType;
 import org.bukkit.entity.Player;
 

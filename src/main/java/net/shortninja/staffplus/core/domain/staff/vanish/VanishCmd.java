@@ -56,7 +56,7 @@ public class VanishCmd extends AbstractCmd {
             }
 
             sessionManager.saveSession(targetPlayer.getPlayer());
-            return true;
+            return true;s
         }
 
         if (args.length == 2 && permissionHandler.isOp(sender)) {

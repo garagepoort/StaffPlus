@@ -1,4 +1,4 @@
-package net.shortninja.staffplus.core.domain.confirmation;
+package net.shortninja.staffplus.core.common.gui.confirmation;
 
 import net.shortninja.staffplus.core.domain.staff.mode.item.ConfirmationType;
 

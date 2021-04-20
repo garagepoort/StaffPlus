@@ -5,8 +5,8 @@ import be.garagepoort.mcioc.IocMultiProvider;
 import net.shortninja.staffplus.core.StaffPlus;
 import net.shortninja.staffplus.core.common.config.Messages;
 
-import net.shortninja.staffplus.core.domain.confirmation.ConfirmationConfig;
-import net.shortninja.staffplus.core.domain.confirmation.ConfirmationService;
+import net.shortninja.staffplus.core.common.gui.confirmation.ConfirmationConfig;
+import net.shortninja.staffplus.core.common.gui.confirmation.ConfirmationService;
 import net.shortninja.staffplus.core.domain.staff.mode.item.CustomModuleConfiguration;
 import org.bukkit.Bukkit;
 

@@ -1,6 +1,6 @@
 package net.shortninja.staffplus.core.domain.staff.mode.item;
 
-import net.shortninja.staffplus.core.domain.confirmation.ConfirmationConfig;
+import net.shortninja.staffplus.core.common.gui.confirmation.ConfirmationConfig;
 import net.shortninja.staffplus.core.domain.staff.mode.config.ModeItemConfiguration;
 import org.bukkit.inventory.ItemStack;
 

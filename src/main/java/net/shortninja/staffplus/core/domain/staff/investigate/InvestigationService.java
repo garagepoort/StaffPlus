@@ -81,6 +81,10 @@ public class InvestigationService {
         });
     }
 
+    public Optional<Investigation> findCurrentActiveInvestigation(Player investigator) {
+        return investigationsRepository.getInvestigationForInvestigator(investigator.getUniqueId(), Collections.singletonList(OPEN));
+    }
+
     public void resumeInvestigation(Player investigator, SppPlayer investigated) {
         bukkitUtils.runTaskAsync(investigator, () -> {
             permissionHandler.validate(investigator, options.investigationConfiguration.getInvestigatePermission());

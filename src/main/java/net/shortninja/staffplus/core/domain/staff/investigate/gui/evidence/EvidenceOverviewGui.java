@@ -5,7 +5,7 @@ import net.shortninja.staffplus.core.common.IProtocolService;
 import net.shortninja.staffplus.core.common.gui.AbstractGui;
 import net.shortninja.staffplus.core.common.gui.IAction;
 import net.shortninja.staffplus.core.common.gui.PagedGui;
-import net.shortninja.staffplus.core.domain.confirmation.ConfirmationGui;
+import net.shortninja.staffplus.core.common.gui.confirmation.ConfirmationGui;
 import net.shortninja.staffplus.core.domain.staff.investigate.Investigation;
 import net.shortninja.staffplus.core.domain.staff.investigate.InvestigationEvidenceService;
 import net.shortninja.staffplusplus.investigate.evidence.EvidenceGuiClick;
