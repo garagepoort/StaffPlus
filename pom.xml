@@ -62,6 +62,10 @@
             <id>luck-repo</id>
             <url>https://repo.lucko.me/</url>
         </repository>
+        <repository>
+            <id>lumine-repo</id>
+            <url>https://mvn.lumine.io/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -198,6 +202,12 @@
             <groupId>com.github.ElgarL</groupId>
             <artifactId>groupmanager</artifactId>
             <version>2.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.Indyuce</groupId>
+            <artifactId>MMOItems</artifactId>
+            <version>6.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
