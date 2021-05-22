@@ -9,6 +9,7 @@ import net.shortninja.staffplus.core.session.database.SessionsRepository;
 import net.shortninja.staffplusplus.vanish.VanishType;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 @IocBean
@@ -32,6 +33,6 @@ public class DefaultSessionEnhancer implements SessionEnhancer {
         if (options.serverSyncConfiguration.isVanishSyncEnabled()) {
             playerSession.setVanishType(session.map(SessionEntity::getVanishType).orElse(vanishType));
         }
-        playerSession.setStaffChatMuted(session.map(SessionEntity::isStaffChatMuted).orElse(false));
+        playerSession.setMutedStaffChatChannels(session.map(SessionEntity::getMutedStaffChatChannels).orElse(new HashSet<>()));
     }
 }

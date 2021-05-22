@@ -50,9 +50,6 @@ public class BungeeClient {
                 DataOutputStream msgout = new DataOutputStream(msgbytes);
                 msgout.writeUTF(message);
 
-                StaffPlus.get().getLogger().info("Sending bungee message on context [" + context + "]");
-                StaffPlus.get().getLogger().info("Message content [" + message + "]");
-
                 out.writeShort(msgbytes.toByteArray().length);
                 out.write(msgbytes.toByteArray());
 

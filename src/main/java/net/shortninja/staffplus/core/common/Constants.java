@@ -15,6 +15,7 @@ public class Constants {
     public static final String BUNGEE_REPORT_CLOSED_CHANNEL = "staffplusplus.report-closed";
     public static final String BUNGEE_REPORT_REOPEN_CHANNEL = "staffplusplus.report-reopen";
 
+    public static final String BUNGEE_STAFFCHAT_CHANNEL = "StaffPlusPlusChat";
     public static final String BUNGEE_INVESTIGATION_STARTED_CHANNEL = "staffplusplus.investigation-started";
     public static final String BUNGEE_INVESTIGATION_PAUSED_CHANNEL = "staffplusplus.investigation-paused";
     public static final String BUNGEE_INVESTIGATION_CONCLUDED_CHANNEL = "staffplusplus.investigation-concluded";

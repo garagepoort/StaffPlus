@@ -131,10 +131,10 @@ public class SessionLoader {
                 session.get().setStaffMode(playerSession.isInStaffMode());
                 session.get().setStaffModeName(staffModeName);
             }
-            session.get().setStaffChatMuted(playerSession.isStaffChatMuted());
+            session.get().setMutedStaffChatChannels(playerSession.getMutedStaffChatChannels());
             sessionsRepository.update(session.get());
         } else {
-            sessionsRepository.addSession(new SessionEntity(playerSession.getUuid(), playerSession.getVanishType(), playerSession.isInStaffMode(), playerSession.isStaffChatMuted(), staffModeName));
+            sessionsRepository.addSession(new SessionEntity(playerSession.getUuid(), playerSession.getVanishType(), playerSession.isInStaffMode(), playerSession.getMutedStaffChatChannels(), staffModeName));
         }
     }
 }

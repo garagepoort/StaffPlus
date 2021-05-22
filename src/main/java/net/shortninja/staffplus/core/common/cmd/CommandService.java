@@ -4,7 +4,6 @@ import be.garagepoort.mcioc.IocBean;
 import net.shortninja.staffplus.core.authentication.AuthenticationService;
 import net.shortninja.staffplus.core.common.cmd.arguments.ArgumentProcessor;
 import net.shortninja.staffplus.core.common.cmd.arguments.ArgumentType;
-import net.shortninja.staffplus.core.common.config.Messages;
 import net.shortninja.staffplus.core.common.utils.PermissionHandler;
 import net.shortninja.staffplus.core.domain.delayedactions.DelayArgumentExecutor;
 import net.shortninja.staffplusplus.session.SppPlayer;
@@ -25,15 +24,13 @@ public class CommandService {
     private final CommandPlayerRetriever commandPlayerRetriever;
     private final DelayArgumentExecutor delayArgumentExecutor;
     private final AuthenticationService authenticationService;
-    private final Messages messages;
     private final ArgumentProcessor argumentProcessor;
 
-    public CommandService(PermissionHandler permissionHandler, CommandPlayerRetriever commandPlayerRetriever, DelayArgumentExecutor delayArgumentExecutor, AuthenticationService authenticationService, Messages messages, ArgumentProcessor argumentProcessor) {
+    public CommandService(PermissionHandler permissionHandler, CommandPlayerRetriever commandPlayerRetriever, DelayArgumentExecutor delayArgumentExecutor, AuthenticationService authenticationService, ArgumentProcessor argumentProcessor) {
         this.permissionHandler = permissionHandler;
         this.commandPlayerRetriever = commandPlayerRetriever;
         this.delayArgumentExecutor = delayArgumentExecutor;
         this.authenticationService = authenticationService;
-        this.messages = messages;
         this.argumentProcessor = argumentProcessor;
     }
 

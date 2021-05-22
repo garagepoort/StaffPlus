@@ -20,9 +20,6 @@ reports-prefix: "&dAangiftes &8»"
 # Het voorvoegsel voor alle berichten die verwant zijn met waarschuwingen.
 warnings-prefix: "&dWaarschuwingen &8»"
 
-# Het voorvoegsel voor alle berichten in de chat van het personeel.
-staff-chat-prefix: "&dPersoneelChat &8»"
-
 # Het voorvoegsel voor alle ticket berichten.
 tickets-prefix: "&dTickets &8»"
 trace-prefix: "&dTrace &8»"

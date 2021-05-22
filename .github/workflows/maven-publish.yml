@@ -31,6 +31,10 @@ jobs:
             echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
             echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
+      - uses: s4u/maven-settings-action@v2.4.0
+        with:
+            mirrors: '[{"id": "nexus-staffplusplus-mirror", "name": "nexus-staffplusplus", "mirrorOf": "external:http:*", "url": "http://staffplusplus.org:8081/repository/staffplusplus"}]'
+
       - name: Get current version
         id: get-version
         shell: bash

@@ -20,9 +20,6 @@ reports-prefix: "&d举报 &8»"
 # 所有警告相关信息的前缀.
 warnings-prefix: "&d警告 &8»"
 
-# 所有管理聊天信息的前缀.
-staff-chat-prefix: "&dStaff频道 &8»"
-
 # 所有标签信息的前缀
 tickets-prefix: "&d标签 &8»"
 trace-prefix: "&dTrace &8»"

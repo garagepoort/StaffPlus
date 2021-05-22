@@ -5,8 +5,8 @@ import net.shortninja.staffplus.core.common.exceptions.DatabaseException;
 import net.shortninja.staffplusplus.vanish.VanishType;
 
 import java.sql.*;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractSqlSessionsRepository implements SessionsRepository {
 
@@ -23,10 +23,10 @@ public abstract class AbstractSqlSessionsRepository implements SessionsRepositor
     @Override
     public void update(SessionEntity sessionEntity) {
         try (Connection sql = getConnection();
-             PreparedStatement insert = sql.prepareStatement("UPDATE sp_sessions set vanish_type=?, in_staff_mode=?, staff_chat_muted=? , staff_mode_name=? WHERE ID=?")) {
+             PreparedStatement insert = sql.prepareStatement("UPDATE sp_sessions set vanish_type=?, in_staff_mode=?, muted_staff_chat_channels=? , staff_mode_name=? WHERE ID=?")) {
             insert.setString(1, sessionEntity.getVanishType().toString());
             insert.setBoolean(2, sessionEntity.getStaffMode());
-            insert.setBoolean(3, sessionEntity.isStaffChatMuted());
+            insert.setString(3, String.join(";", sessionEntity.getMutedStaffChatChannels()));
             if (sessionEntity.getStaffModeName() == null) {
                 insert.setNull(4, Types.VARCHAR);
             } else {
@@ -61,7 +61,7 @@ public abstract class AbstractSqlSessionsRepository implements SessionsRepositor
         UUID playerUuid = UUID.fromString(rs.getString("player_uuid"));
         VanishType vanishType = VanishType.valueOf(rs.getString("vanish_type"));
         boolean inStaffMode = rs.getBoolean("in_staff_mode");
-        boolean staffChatMuted = rs.getBoolean("staff_chat_muted");
+        Set<String> staffChatMuted = rs.getString("muted_staff_chat_channels") == null ? new HashSet<>() : Arrays.stream(rs.getString("muted_staff_chat_channels").split(";")).collect(Collectors.toSet());
         String staffModeName = rs.getString("staff_mode_name");
         return new SessionEntity(
             id,

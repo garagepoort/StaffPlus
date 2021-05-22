@@ -20,9 +20,6 @@ reports-prefix: "&dReports &8»"
 # The prefix for all messages related to warnings.
 warnings-prefix: "&dWarnings &8»"
 
-# The prefix for all messages in staff chat.
-staff-chat-prefix: "&dStaffChat &8»"
-
 # The prefix for all ticket messages
 tickets-prefix: "&dTickets &8»"
 trace-prefix: "&dTrace &8»"

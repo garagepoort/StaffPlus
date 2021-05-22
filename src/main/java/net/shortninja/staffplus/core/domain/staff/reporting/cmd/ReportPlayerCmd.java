@@ -12,6 +12,10 @@ import net.shortninja.staffplus.core.common.config.Options;
 import net.shortninja.staffplus.core.common.exceptions.BusinessException;
 
 import net.shortninja.staffplus.core.domain.player.PlayerManager;
+import net.shortninja.staffplus.core.domain.staff.reporting.config.CulpritFilterPredicate;
+import net.shortninja.staffplus.core.domain.staff.reporting.config.ReportReasonConfiguration;
+import net.shortninja.staffplus.core.domain.staff.reporting.config.ReportTypeConfiguration;
+import net.shortninja.staffplus.core.domain.staff.reporting.gui.ReportReasonSelectGui;
 import net.shortninja.staffplusplus.session.SppPlayer;
 import net.shortninja.staffplus.core.domain.staff.reporting.ReportService;
 import net.shortninja.staffplus.core.domain.staff.reporting.gui.ReportTypeSelectGui;
@@ -26,6 +30,10 @@ import java.util.stream.Collectors;
 @IocBean(conditionalOnProperty = "reports-module.enabled=true")
 @IocMultiProvider(SppCommand.class)
 public class ReportPlayerCmd extends AbstractCmd {
+    private static final CulpritFilterPredicate culpritFilterPredicate = new CulpritFilterPredicate(true);
+    private final List<ReportTypeConfiguration> reportTypeConfigurations;
+    private final List<ReportReasonConfiguration> reportReasonConfigurations;
+
     private final ReportService reportService;
     private final PlayerManager playerManager;
 
@@ -36,6 +44,8 @@ public class ReportPlayerCmd extends AbstractCmd {
         setPermission(options.permissionReport);
         setDescription("Sends a report with the given player and reason.");
         setUsage("[player] [reason]");
+        reportTypeConfigurations = options.reportConfiguration.getReportTypeConfigurations(culpritFilterPredicate);
+        reportReasonConfigurations = options.reportConfiguration.getReportReasonConfigurations(culpritFilterPredicate);
     }
 
     @Override
@@ -43,19 +53,29 @@ public class ReportPlayerCmd extends AbstractCmd {
         if (!(sender instanceof Player)) {
             throw new BusinessException(messages.onlyPlayers);
         }
-        String reason = JavaUtils.compileWords(args, 1);
 
-        if(options.reportConfiguration.getReportTypeConfigurations().isEmpty()) {
+        String reason = options.reportConfiguration.isFixedReasonCulprit() ? null : JavaUtils.compileWords(args, 1);
+
+        if (reportTypeConfigurations.isEmpty() && reportReasonConfigurations.isEmpty()) {
             reportService.sendReport((Player) sender, player, reason);
-        } else {
-            new ReportTypeSelectGui((Player) sender, reason, player).show((Player) sender);
+            return true;
         }
+
+        if (!reportTypeConfigurations.isEmpty()) {
+            new ReportTypeSelectGui((Player) sender, reason, player, reportTypeConfigurations, reportReasonConfigurations).show((Player) sender);
+            return true;
+        }
+
+        new ReportReasonSelectGui((Player) sender, player, null, reportReasonConfigurations).show((Player) sender);
         return true;
     }
 
     @Override
     protected int getMinimumArguments(CommandSender sender, String[] args) {
-        return 2;
+        if (reportReasonConfigurations.isEmpty()) {
+            return 2;
+        }
+        return 1;
     }
 
     @Override

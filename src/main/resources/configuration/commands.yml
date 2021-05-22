@@ -36,11 +36,6 @@ commands:
     # The command for running a clicks per second test on a player
     cps: "cps"
 
-    # The command for toggling and using staff chat.
-    staff-chat: "sc"
-    # The command for toggling and using staff chat.
-    staff-chat-mute: "sc-mute"
-
     # The command for opening the my reports gui
     my-reports: "my-reports"
 

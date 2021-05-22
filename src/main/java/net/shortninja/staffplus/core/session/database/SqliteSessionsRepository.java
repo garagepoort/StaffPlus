@@ -16,13 +16,13 @@ public class SqliteSessionsRepository extends AbstractSqlSessionsRepository {
     @Override
     public int addSession(SessionEntity sessionEntity) {
         try (Connection sql = getConnection();
-             PreparedStatement insert = sql.prepareStatement("INSERT INTO sp_sessions(player_uuid, vanish_type, in_staff_mode, staff_chat_muted, staff_mode_name) " +
+             PreparedStatement insert = sql.prepareStatement("INSERT INTO sp_sessions(player_uuid, vanish_type, in_staff_mode, muted_staff_chat_channels, staff_mode_name) " +
                  "VALUES(?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
             sql.setAutoCommit(false);
             insert.setString(1, sessionEntity.getPlayerUuid().toString());
             insert.setString(2, sessionEntity.getVanishType().toString());
             insert.setBoolean(3, sessionEntity.getStaffMode());
-            insert.setBoolean(4, sessionEntity.isStaffChatMuted());
+            insert.setString(4, String.join(";", sessionEntity.getMutedStaffChatChannels()));
             if (sessionEntity.getStaffModeName() == null) {
                 insert.setNull(5, Types.VARCHAR);
             } else {

@@ -67,11 +67,6 @@ permissions:
             delete-note: "staff.investigation.manage.delete-note"
             delete-note-others: "staff.investigation.manage.delete-note-others"
 
-    # Permission for using staff chat.
-    staff-chat: "staff.staffchat"
-    # Permission for muting staff chat.
-    staff-chat-mute: "staff.staffchat.mute"
-
     # Permission for using the vanish command
     vanish: "staff.vanish"
     see-vanished: "staff.vanish.see-vanished"

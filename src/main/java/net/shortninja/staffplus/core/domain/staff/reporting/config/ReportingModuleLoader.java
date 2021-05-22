@@ -4,6 +4,7 @@ import be.garagepoort.mcioc.IocBean;
 import net.shortninja.staffplus.core.common.Sounds;
 import net.shortninja.staffplus.core.common.config.AbstractConfigLoader;
 
+import net.shortninja.staffplus.core.common.config.ConfigurationUtil;
 import net.shortninja.staffplus.core.common.gui.GuiItemConfig;
 import net.shortninja.staffplus.core.domain.actions.ActionConfigLoader;
 import net.shortninja.staffplus.core.domain.actions.ConfiguredAction;
@@ -26,6 +27,8 @@ public class ReportingModuleLoader extends AbstractConfigLoader<ReportConfigurat
         boolean showReporter = defaultConfig.getBoolean("reports-module.show-reporter");
         boolean notifyReportOnJoin = defaultConfig.getBoolean("reports-module.reporter-notifications.notify-on-join");
         boolean closingReasonEnabled = defaultConfig.getBoolean("reports-module.closing-reason-enabled", true);
+        boolean fixedReason = defaultConfig.getBoolean("reports-module.fixed-reason", false);
+        boolean fixedReasonCulprit = defaultConfig.getBoolean("reports-module.fixed-reason-culprit", false);
         Sounds sound = stringToSound(sanitize(defaultConfig.getString("reports-module.sound", "NONE")));
         String myReportsPermission = permissionsConfig.getString("permissions.view-my-reports");
         String myReportsCmd = commandsConfig.getString("commands.my-reports");
@@ -69,6 +72,8 @@ public class ReportingModuleLoader extends AbstractConfigLoader<ReportConfigurat
             notifyReportOnJoin,
             reporterNotifyStatuses,
             getReportTypes(defaultConfig),
+            fixedReason,
+            fixedReasonCulprit, getReportReasons(defaultConfig),
             acceptReportActions,
             rejectReportActions,
             reopenReportActions,
@@ -82,7 +87,24 @@ public class ReportingModuleLoader extends AbstractConfigLoader<ReportConfigurat
             String name = map.get("name");
             String lore = map.get("info");
             Material material = map.containsKey("material") ? Material.valueOf(map.get("material")) : Material.PAPER;
-            return new ReportTypeConfiguration(name, material, lore);
+            String filtersString = map.containsKey("filters") ? map.get("filters") : null;
+            Map<String, String> filterMap = ConfigurationUtil.loadFilters(filtersString);
+
+            return new ReportTypeConfiguration(name, material, lore, filterMap);
+        }).collect(Collectors.toList());
+    }
+
+    private List<ReportReasonConfiguration> getReportReasons(FileConfiguration config) {
+        List<LinkedHashMap<String, String>> list = (List<LinkedHashMap<String, String>>) config.getList("reports-module.reasons", new ArrayList<>());
+
+        return Objects.requireNonNull(list).stream().map(map -> {
+            String reason = map.get("reason");
+            String type = map.get("type");
+            String lore = map.get("info");
+            Material material = map.containsKey("material") ? Material.valueOf(map.get("material")) : Material.PAPER;
+            String filtersString = map.containsKey("filters") ? map.get("filters") : null;
+            Map<String, String> filterMap = ConfigurationUtil.loadFilters(filtersString);
+            return new ReportReasonConfiguration(reason, type, material, lore, filterMap);
         }).collect(Collectors.toList());
     }
 }

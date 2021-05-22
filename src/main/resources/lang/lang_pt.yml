@@ -20,9 +20,6 @@ reports-prefix: "&dReports &8»"
 # Prefixos para todas mensagens relacionadas à Avisos.
 warnings-prefix: "&dAvisos &8»"
 
-# Prefixo para mensagens no StaffChat.
-staff-chat-prefix: "&dStaffChat &8»"
-
 # Prefixos para todas mensagens de Tickets
 tickets-prefix: "&dTickets &8»"
 trace-prefix: "&dTrace &8»"

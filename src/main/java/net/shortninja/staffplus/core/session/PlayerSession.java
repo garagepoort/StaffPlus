@@ -23,13 +23,13 @@ public class PlayerSession implements IPlayerSession {
     private Map<AlertType, Boolean> alertOptions = new HashMap<>();
     private List<String> playerNotes = new ArrayList<>();
 
-    private boolean isChatting = false;
+    private String activeStaffChatChannel = null;
     private boolean isFrozen = false;
     private boolean underInvestigation = false;
     private boolean isProtected = false;
     private boolean muted = false;
     private boolean inStaffMode = false;
-    private boolean staffChatMuted = false;
+    private Set<String> mutedStaffChatChannels = new HashSet<>();
     private GeneralModeConfiguration modeConfiguration = null;
 
     public PlayerSession(UUID uuid, String name, boolean muted) {
@@ -128,13 +128,12 @@ public class PlayerSession implements IPlayerSession {
         return alertOptions.get(alertType) != null && alertOptions.get(alertType);
     }
 
-    @Override
-    public boolean inStaffChatMode() {
-        return isChatting;
+    public Optional<String> getActiveStaffChatChannel() {
+        return Optional.ofNullable(activeStaffChatChannel);
     }
 
-    public void setChatting(boolean isChatting) {
-        this.isChatting = isChatting;
+    public void setActiveStaffChatChannel(String activeStaffChatChannel) {
+        this.activeStaffChatChannel = activeStaffChatChannel;
     }
 
     @Override
@@ -180,12 +179,24 @@ public class PlayerSession implements IPlayerSession {
         this.muted = muted;
     }
 
-    public boolean isStaffChatMuted() {
-        return staffChatMuted;
+    public boolean isStaffChatMuted(String channel) {
+        return mutedStaffChatChannels.stream().anyMatch(s -> s.equalsIgnoreCase(channel));
     }
 
-    public void setStaffChatMuted(boolean staffChatMuted) {
-        this.staffChatMuted = staffChatMuted;
+    public void setStaffChatMuted(String channelName, boolean staffChatMuted) {
+        if (staffChatMuted) {
+            mutedStaffChatChannels.add(channelName);
+        } else {
+            mutedStaffChatChannels.removeIf(c -> c.equalsIgnoreCase(channelName));
+        }
+    }
+
+    public Set<String> getMutedStaffChatChannels() {
+        return mutedStaffChatChannels;
+    }
+
+    public void setMutedStaffChatChannels(Set<String> mutedStaffChatChannels) {
+        this.mutedStaffChatChannels = mutedStaffChatChannels;
     }
 
     public boolean isUnderInvestigation() {

@@ -29,22 +29,30 @@ public class StaffPlus extends TubingPlugin implements IStaffPlus {
 
     @Override
     protected void enable() {
-        plugin = this;
-        if (!loadConfig()) {
+        try {
+
+            plugin = this;
+            if (!loadConfig()) {
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
+            }
+
+            Bukkit.getServicesManager().register(IStaffPlus.class, this, this, ServicePriority.Normal);
+
+            getLogger().info("Staff++ has been enabled!");
+            getLogger().info("Plugin created by Shortninja continued by Qball - Revisited by Garagepoort");
+        } catch (Exception e) {
+            getLogger().severe("Unable to load plugin: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
-            return;
         }
-
-        Bukkit.getServicesManager().register(IStaffPlus.class, this, this, ServicePriority.Normal);
-
-        getLogger().info("Staff++ has been enabled!");
-        getLogger().info("Plugin created by Shortninja continued by Qball - Revisited by Garagepoort");
     }
 
     @Override
     protected void disable() {
         getLogger().info("Staff++ is now disabling!");
-        getIocContainer().getList(PluginDisable.class).forEach(b -> b.disable(this));
+        if (this.getIocContainer() != null && getIocContainer().getList(PluginDisable.class) != null) {
+            getIocContainer().getList(PluginDisable.class).forEach(b -> b.disable(this));
+        }
         getLogger().info("Staff++ disabled!");
     }
 

@@ -20,9 +20,6 @@ reports-prefix: "&dReports &8»"
 # Prefix für alle Nachrichten bezüglich Verwarnungen.
 warnings-prefix: "&dVerwarnungen &8»"
 
-# Prefix für alle Nachrichten die im Teammitglied-Chat geschrieben werden.
-staff-chat-prefix: "&dTeamchat &8»"
-
 # Prefix für alle Fahrkarte Nachrichten.
 tickets-prefix: "&dTickets &8»"
 

@@ -19,6 +19,9 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: 1.8
+            -   uses: s4u/maven-settings-action@v2.4.0
+                with:
+                    mirrors: '[{"id": "nexus-staffplusplus-mirror", "name": "nexus-staffplusplus", "mirrorOf": "external:http:*", "url": "http://staffplusplus.org:8081/repository/staffplusplus"}]'
             -   name: Build with Maven
                 run: mvn -B package --file pom.xml
 

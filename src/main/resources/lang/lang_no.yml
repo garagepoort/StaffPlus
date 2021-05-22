@@ -19,9 +19,6 @@ reports-prefix: "&dRapporter &8»"
 # Prefikset for alle meldinger relatert til advarsler.
 warnings-prefix: "&dadvarsler &8»"
 
-# Prefikset for alle meldinger i staff chat.
-staff-chat-prefix: "&dStaffChat &8»"
-
 # Prefikset for alle billett meldinger.
 tickets-prefix: "&dbilletter &8»"
 trace-prefix: "&dTrace &8»"

@@ -1,44 +1,40 @@
 package net.shortninja.staffplus.core.domain.staff.staffchat.cmd;
 
-import be.garagepoort.mcioc.IocBean;
-import be.garagepoort.mcioc.IocMultiProvider;
 import net.shortninja.staffplus.core.common.JavaUtils;
 import net.shortninja.staffplus.core.common.cmd.AbstractCmd;
 import net.shortninja.staffplus.core.common.cmd.CommandService;
 import net.shortninja.staffplus.core.common.cmd.PlayerRetrievalStrategy;
-import net.shortninja.staffplus.core.common.cmd.SppCommand;
 import net.shortninja.staffplus.core.common.config.Messages;
 import net.shortninja.staffplus.core.common.config.Options;
-
-import net.shortninja.staffplusplus.session.SppPlayer;
+import net.shortninja.staffplus.core.domain.staff.staffchat.StaffChatChannelConfiguration;
 import net.shortninja.staffplus.core.domain.staff.staffchat.StaffChatServiceImpl;
 import net.shortninja.staffplus.core.session.PlayerSession;
 import net.shortninja.staffplus.core.session.SessionManagerImpl;
+import net.shortninja.staffplusplus.session.SppPlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-@IocBean(conditionalOnProperty = "staff-chat-module.enabled=true")
-@IocMultiProvider(SppCommand.class)
-public class StaffChatCmd extends AbstractCmd {
+public class StaffChatChannelCmd extends AbstractCmd {
     private final SessionManagerImpl sessionManager;
     private final StaffChatServiceImpl staffChatService;
+    private final StaffChatChannelConfiguration channelConfiguration;
 
-    public StaffChatCmd(Messages messages, Options options, SessionManagerImpl sessionManager, StaffChatServiceImpl staffChatService, CommandService commandService) {
-        super(options.commandStaffChat, messages, options, commandService);
+    public StaffChatChannelCmd(Messages messages, Options options, SessionManagerImpl sessionManager, StaffChatServiceImpl staffChatService, CommandService commandService, StaffChatChannelConfiguration channelConfiguration) {
+        super(channelConfiguration.getCommand(), messages, options, commandService);
         this.sessionManager = sessionManager;
         this.staffChatService = staffChatService;
-        setDescription("Sends a message or toggles staff chat.");
+        this.channelConfiguration = channelConfiguration;
+        setDescription("Sends a message or toggles staff chat for channel:" + channelConfiguration.getName());
         setUsage("{message}");
-        setPermission(options.staffChatConfiguration.getPermissionStaffChat());
+        channelConfiguration.getPermission().ifPresent(this::setPermission);
     }
-
 
     @Override
     protected boolean executeCmd(CommandSender sender, String alias, String[] args, SppPlayer player) {
         if (args.length > 0) {
-            staffChatService.sendMessage(sender, JavaUtils.compileWords(args, 0));
+            staffChatService.sendMessage(sender, channelConfiguration.getName(), JavaUtils.compileWords(args, 0));
         } else {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("Please provide a message");
@@ -46,12 +42,12 @@ public class StaffChatCmd extends AbstractCmd {
             }
             PlayerSession session = sessionManager.get(((Player) sender).getUniqueId());
 
-            if (session.inStaffChatMode()) {
-                messages.send(sender, messages.staffChatStatus.replace("%status%", messages.disabled), messages.prefixStaffChat);
-                session.setChatting(false);
+            if (session.getActiveStaffChatChannel().isPresent() && session.getActiveStaffChatChannel().get().equalsIgnoreCase(channelConfiguration.getName())) {
+                messages.send(sender, messages.staffChatStatus.replace("%status%", messages.disabled), channelConfiguration.getPrefix());
+                session.setActiveStaffChatChannel(null);
             } else {
-                messages.send(sender, messages.staffChatStatus.replace("%status%", messages.enabled), messages.prefixStaffChat);
-                session.setChatting(true);
+                messages.send(sender, messages.staffChatStatus.replace("%status%", messages.enabled), channelConfiguration.getPrefix());
+                session.setActiveStaffChatChannel(channelConfiguration.getName());
             }
         }
 

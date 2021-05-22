@@ -2,6 +2,7 @@ package net.shortninja.staffplus.core.session.database;
 
 import net.shortninja.staffplusplus.vanish.VanishType;
 
+import java.util.Set;
 import java.util.UUID;
 
 public class SessionEntity {
@@ -10,25 +11,26 @@ public class SessionEntity {
     private UUID playerUuid;
     private VanishType vanishType;
     private boolean staffMode;
-    private boolean staffChatMuted;
+    private Set<String> mutedStaffChatChannels;
     private String staffModeName;
 
-    public SessionEntity() {}
+    public SessionEntity() {
+    }
 
-    public SessionEntity(int id, UUID playerUuid, VanishType vanishType, boolean staffMode, boolean staffChatMuted, String staffModeName) {
+    public SessionEntity(int id, UUID playerUuid, VanishType vanishType, boolean staffMode, Set<String> mutedStaffChatChannels, String staffModeName) {
         this.id = id;
         this.playerUuid = playerUuid;
         this.vanishType = vanishType;
         this.staffMode = staffMode;
-        this.staffChatMuted = staffChatMuted;
+        this.mutedStaffChatChannels = mutedStaffChatChannels;
         this.staffModeName = staffModeName;
     }
 
-    public SessionEntity(UUID playerUuid, VanishType vanishType, boolean staffMode, boolean staffChatMuted, String staffModeName) {
+    public SessionEntity(UUID playerUuid, VanishType vanishType, boolean staffMode, Set<String> mutedStaffChatChannels, String staffModeName) {
         this.playerUuid = playerUuid;
         this.vanishType = vanishType;
         this.staffMode = staffMode;
-        this.staffChatMuted = staffChatMuted;
+        this.mutedStaffChatChannels = mutedStaffChatChannels;
         this.staffModeName = staffModeName;
     }
 
@@ -64,12 +66,12 @@ public class SessionEntity {
         return id;
     }
 
-    public void setStaffChatMuted(boolean staffChatMuted) {
-        this.staffChatMuted = staffChatMuted;
+    public void setMutedStaffChatChannels(Set<String> mutedStaffChatChannels) {
+        this.mutedStaffChatChannels = mutedStaffChatChannels;
     }
 
-    public boolean isStaffChatMuted() {
-        return staffChatMuted;
+    public Set<String> getMutedStaffChatChannels() {
+        return mutedStaffChatChannels;
     }
 
     public String getStaffModeName() {

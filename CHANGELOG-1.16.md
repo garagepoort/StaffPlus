@@ -1,6 +1,14 @@
 # Changelog Staff++ | v1.16
 
-# V1.16.63
+# V1.16.65
+### Features
+- Add multiple staff chat channels
+- Reports can now have fixed reasons (optionally linked to report types)
+
+### Bugs
+- Invalid yaml configuration caused configuration file to reset
+
+# V1.16.64
 ### Breaking change
 - Added permission `see-vanished`. Option `staff-see-staff-in-mode` has been removed
 

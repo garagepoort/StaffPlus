@@ -103,6 +103,9 @@ reports-module:
 
   # Types of reports. When configured the reporter will see a UI where he must choose the type
   report-types: []
+  fixed-reason: false
+  fixed-reason-culprit: false
+  reasons: []
 
   reporter-notifications:
       # The reporter will be notified the moment he comes online that he has reports OPEN or IN_PROGRESS
@@ -180,7 +183,13 @@ staff-chat-module:
   # The string that can be used at the beginning of a message to make it appear in staff chat.
   # If you have "@" as your string, typing "@hey guys" would send "hey guys" to staff chat.
   # Leave blank to disable.
-  handle: "@"
+
+  channels:
+      - command: sc
+        handle: "@"
+        name: staffchat
+        prefix: '&dStaffChat &8»'
+        permission: staff.staffchat
 
 ############################################################
 # +------------------------------------------------------+ #

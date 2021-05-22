@@ -21,7 +21,8 @@ public class AutoUpdater extends AbstractConfigUpdater {
         new StaffModeModulesMigrator(),
         new PermissionsMigrator(),
         new CommandsMigrator(),
-        new StaffModesMigrator());
+        new StaffModesMigrator(),
+        new StaffChatChannelMigrator());
 
     public static boolean updateConfig(ConfigurationFile configurationFile) {
         try {

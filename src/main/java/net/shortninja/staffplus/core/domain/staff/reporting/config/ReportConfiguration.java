@@ -6,7 +6,10 @@ import net.shortninja.staffplus.core.domain.actions.ConfiguredAction;
 import net.shortninja.staffplusplus.reports.ReportStatus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ReportConfiguration {
 
@@ -24,6 +27,9 @@ public class ReportConfiguration {
     private boolean notifyReporterOnJoin;
     private List<ReportStatus> reporterNotifyStatuses;
     private List<ReportTypeConfiguration> reportTypeConfigurations;
+    private boolean fixedReason;
+    private boolean fixedReasonCulprit;
+    private List<ReportReasonConfiguration> reportReasonConfigurations;
     private List<ConfiguredAction> acceptReportActions;
     private final List<ConfiguredAction> rejectReportActions;
     private final List<ConfiguredAction> reopenReportActions;
@@ -41,7 +47,7 @@ public class ReportConfiguration {
                                String myReportsPermission, String myReportsCmd, boolean notifyReporterOnJoin,
                                List<ReportStatus> reporterNotifyStatuses,
                                List<ReportTypeConfiguration> reportTypeConfigurations,
-                               List<ConfiguredAction> acceptReportActions,
+                               boolean fixedReason, boolean fixedReasonCulprit, List<ReportReasonConfiguration> reportReasonConfigurations, List<ConfiguredAction> acceptReportActions,
                                List<ConfiguredAction> rejectReportActions,
                                List<ConfiguredAction> reopenReportActions,
                                List<ConfiguredAction> resolveReportActions) {
@@ -59,10 +65,21 @@ public class ReportConfiguration {
         this.notifyReporterOnJoin = notifyReporterOnJoin;
         this.reporterNotifyStatuses = reporterNotifyStatuses;
         this.reportTypeConfigurations = reportTypeConfigurations;
+        this.fixedReason = fixedReason;
+        this.fixedReasonCulprit = fixedReasonCulprit;
+        this.reportReasonConfigurations = reportReasonConfigurations;
         this.acceptReportActions = acceptReportActions;
         this.rejectReportActions = rejectReportActions;
         this.reopenReportActions = reopenReportActions;
         this.resolveReportActions = resolveReportActions;
+    }
+
+    public boolean isFixedReason() {
+        return fixedReason;
+    }
+
+    public boolean isFixedReasonCulprit() {
+        return fixedReasonCulprit;
     }
 
     public boolean isClosingReasonEnabled() {
@@ -117,8 +134,14 @@ public class ReportConfiguration {
         return assignedReportsGui;
     }
 
-    public List<ReportTypeConfiguration> getReportTypeConfigurations() {
-        return reportTypeConfigurations;
+    @SafeVarargs
+    public final List<ReportTypeConfiguration> getReportTypeConfigurations(Predicate<Map<String, String>>... filterPredicates) {
+        return reportTypeConfigurations.stream().filter(c ->c.filterMatches(filterPredicates)).collect(Collectors.toList());
+    }
+
+    @SafeVarargs
+    public final List<ReportReasonConfiguration> getReportReasonConfigurations(Predicate<Map<String, String>>... filterPredicates) {
+        return reportReasonConfigurations.stream().filter(c ->c.filterMatches(filterPredicates)).collect(Collectors.toList());
     }
 
     public List<ConfiguredAction> getAcceptReportActions() {

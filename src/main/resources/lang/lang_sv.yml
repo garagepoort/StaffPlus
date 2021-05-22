@@ -20,9 +20,6 @@ reports-prefix: "&dRapporter &8»"
 # Prefixet för alla meddelanden relaterat till varningar.
 warnings-prefix: "&dVarningar &8»"
 
-# Prefixet för alla meddelanden i staff chat.
-staff-chat-prefix: "&dPersonalChatt &8»"
-
 # Prefixet för biljetter.
 tickets-prefix: "&dBiljetter &8»"
 trace-prefix: "&dTrace &8»"

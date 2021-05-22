@@ -1,25 +1,21 @@
 package net.shortninja.staffplus.core.domain.staff.staffchat.config;
 
+import net.shortninja.staffplus.core.domain.staff.staffchat.StaffChatChannelConfiguration;
+
+import java.util.List;
+
 public class StaffChatConfiguration {
 
     private final boolean enabled;
     private final boolean bungeeEnabled;
-    private final String handle;
-    private final String commandStaffChatMute;
-    private final String permissionStaffChat;
-    private final String permissionStaffChatMute;
+    private final List<StaffChatChannelConfiguration> channelConfigurations;
 
     public StaffChatConfiguration(boolean enabled,
                                   boolean bungeeEnabled,
-                                  String handle,
-                                  String commandStaffChatMute,
-                                  String permissionStaffChat, String permissionStaffChatMute) {
+                                  List<StaffChatChannelConfiguration> channelConfigurations) {
         this.enabled = enabled;
         this.bungeeEnabled = bungeeEnabled;
-        this.handle = handle;
-        this.commandStaffChatMute = commandStaffChatMute;
-        this.permissionStaffChat = permissionStaffChat;
-        this.permissionStaffChatMute = permissionStaffChatMute;
+        this.channelConfigurations = channelConfigurations;
     }
 
     public boolean isEnabled() {
@@ -30,19 +26,7 @@ public class StaffChatConfiguration {
         return bungeeEnabled;
     }
 
-    public String getHandle() {
-        return handle;
-    }
-
-    public String getPermissionStaffChat() {
-        return permissionStaffChat;
-    }
-
-    public String getPermissionStaffChatMute() {
-        return permissionStaffChatMute;
-    }
-
-    public String getCommandStaffChatMute() {
-        return commandStaffChatMute;
+    public List<StaffChatChannelConfiguration> getChannelConfigurations() {
+        return channelConfigurations;
     }
 }

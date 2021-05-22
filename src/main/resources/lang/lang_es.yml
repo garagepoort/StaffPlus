@@ -21,9 +21,6 @@ reports-prefix: "&dReportes &8»"
 # El prefijo para todos los mensajes relacionados con advertencias.
 warnings-prefix: "&dAdvertencias &8»"
 
-# El prefijo para todos los mensajes en el chat del staff.
-staff-chat-prefix: "&dChat del Staff&8»"
-
 # El prefijo para todos los mensajes relacionados con tickets
 tickets-prefix: "&dTickets &8»"
 trace-prefix: "&dTrace &8»"

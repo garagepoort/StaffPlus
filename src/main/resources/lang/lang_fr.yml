@@ -20,9 +20,6 @@ reports-prefix: "&dReports &8»"
 # Le préfix de tous les messages qui ont un rapport avec les avertissements.
 warnings-prefix: "&dAvertissements &8»"
 
-# Le prefix de tous les messages se passant de le chat staff.
-staff-chat-prefix: "&dChatStaff &8»"
-
 # Le préfix pour toutes les requêtes
 tickets-prefix: "&dRequêtes &8»"
 trace-prefix: "&dTrace &8»"

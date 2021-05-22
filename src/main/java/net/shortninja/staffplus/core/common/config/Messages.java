@@ -29,7 +29,6 @@ public class Messages {
     public final String prefixProtect;
     public final String prefixReports;
     public final String prefixWarnings;
-    public final String prefixStaffChat;
     public final String prefixTrace;
     public final String prefixInvestigations;
     /*
@@ -183,7 +182,6 @@ public class Messages {
         prefixProtect = config.getString("protect-prefix", "&dProtected &8»");
         prefixReports = config.getString("reports-prefix");
         prefixWarnings = config.getString("warnings-prefix");
-        prefixStaffChat = config.getString("staff-chat-prefix");
         prefixTrace = config.getString("trace-prefix", "&dTrace &8»");
         prefixInvestigations = config.getString("investigations-prefix", "&dInvestigations &8»");
         /*
